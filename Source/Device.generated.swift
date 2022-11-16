@@ -47,7 +47,8 @@ import UIKit
 ///     }
 ///
 public enum Device {
-  #if os(iOS)
+  #if os(macOS)
+  #elseif os(iOS)
     /// Device is an [iPod touch (5th generation)](https://support.apple.com/kb/SP657)
     ///
     /// ![Image](https://support.apple.com/library/APPLE/APPLECARE_ALLGEOS/SP657/sp657_ipod-touch_size.jpg)
@@ -478,7 +479,9 @@ public enum Device {
   ///
   /// - returns: An initialized `Device`.
   public static func mapToDevice(identifier: String) -> Device { // swiftlint:disable:this cyclomatic_complexity function_body_length
-    #if os(iOS)
+    #if os(macOS)
+      return unknown(identifier)
+    #elseif os(iOS)
       switch identifier {
       case "iPod5,1": return iPodTouch5
       case "iPod7,1": return iPodTouch6
@@ -1322,7 +1325,9 @@ extension Device: CustomStringConvertible {
 
   /// A textual representation of the device.
   public var description: String {
-    #if os(iOS)
+  #if os(macOS)
+      return "Mac"
+  #elseif os(iOS)
       switch self {
       case .iPodTouch5: return "iPod touch (5th generation)"
       case .iPodTouch6: return "iPod touch (6th generation)"
@@ -1443,7 +1448,9 @@ extension Device: CustomStringConvertible {
   /// Device.iPhoneXR.description:     iPhone Xʀ
   /// Device.iPhoneXR.safeDescription: iPhone XR
   public var safeDescription: String {
-    #if os(iOS)
+  #if os(macOS)
+      return "Mac"
+  #elseif os(iOS)
       switch self {
       case .iPodTouch5: return "iPod touch (5th generation)"
       case .iPodTouch6: return "iPod touch (6th generation)"
@@ -2026,7 +2033,9 @@ extension Device {
 extension Device {
 
   public enum CPU: Comparable {
-  #if os(iOS) || os(tvOS)
+  #if os(macOS)
+    return unknown
+  #elseif os(iOS) || os(tvOS)
     case a4
     case a5
     case a5X
@@ -2065,7 +2074,9 @@ extension Device {
 
 /// Returns the cpu (SoC) that the device uses
   public var cpu: CPU {
-  #if os(iOS)
+  #if os(macOS)
+      return .unknown
+  #elseif os(iOS)
     switch self {
       case .iPodTouch5: return .a5
       case .iPodTouch6: return .a8
@@ -2186,7 +2197,9 @@ extension Device.CPU: CustomStringConvertible {
 
   /// A textual representation of the device.
   public var description: String {
-  #if os(iOS) || os(tvOS)
+  #if os(macOS)
+      return "unknown"
+  #elseif os(iOS) || os(tvOS)
     switch self {
       case .a4: return "A4"
       case .a5: return "A5"
