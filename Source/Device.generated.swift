@@ -2034,7 +2034,7 @@ extension Device {
 
   public enum CPU: Comparable {
   #if os(macOS)
-    return unknown
+    case unknown
   #elseif os(iOS) || os(tvOS)
     case a4
     case a5
