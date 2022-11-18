@@ -47,7 +47,7 @@ import UIKit
 ///     }
 ///
 public enum Device {
-  #if os(macOS)
+  #if targetEnvironment(macCatalyst)
   #elseif os(iOS)
     /// Device is an [iPod touch (5th generation)](https://support.apple.com/kb/SP657)
     ///
@@ -479,7 +479,7 @@ public enum Device {
   ///
   /// - returns: An initialized `Device`.
   public static func mapToDevice(identifier: String) -> Device { // swiftlint:disable:this cyclomatic_complexity function_body_length
-    #if os(macOS)
+    #if targetEnvironment(macCatalyst)
       return unknown(identifier)
     #elseif os(iOS)
       switch identifier {
@@ -1325,7 +1325,7 @@ extension Device: CustomStringConvertible {
 
   /// A textual representation of the device.
   public var description: String {
-  #if os(macOS)
+  #if targetEnvironment(macCatalyst)
       return "Mac"
   #elseif os(iOS)
       switch self {
@@ -1448,7 +1448,7 @@ extension Device: CustomStringConvertible {
   /// Device.iPhoneXR.description:     iPhone Xʀ
   /// Device.iPhoneXR.safeDescription: iPhone XR
   public var safeDescription: String {
-  #if os(macOS)
+  #if targetEnvironment(macCatalyst)
       return "Mac"
   #elseif os(iOS)
       switch self {
@@ -2033,7 +2033,7 @@ extension Device {
 extension Device {
 
   public enum CPU: Comparable {
-  #if os(macOS)
+  #if targetEnvironment(macCatalyst)
     case unknown
   #elseif os(iOS) || os(tvOS)
     case a4
@@ -2074,7 +2074,7 @@ extension Device {
 
 /// Returns the cpu (SoC) that the device uses
   public var cpu: CPU {
-  #if os(macOS)
+  #if targetEnvironment(macCatalyst)
       return .unknown
   #elseif os(iOS)
     switch self {
@@ -2197,7 +2197,7 @@ extension Device.CPU: CustomStringConvertible {
 
   /// A textual representation of the device.
   public var description: String {
-  #if os(macOS)
+  #if targetEnvironment(macCatalyst)
       return "unknown"
   #elseif os(iOS) || os(tvOS)
     switch self {
