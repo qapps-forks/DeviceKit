@@ -2032,9 +2032,7 @@ extension Device {
 extension Device {
 
   public enum CPU: Comparable {
-  #if targetEnvironment(macCatalyst)
-    case unknown
-  #elseif os(iOS) || os(tvOS)
+  #if os(iOS) || os(tvOS)
     case a4
     case a5
     case a5X
