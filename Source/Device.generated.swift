@@ -47,8 +47,7 @@ import UIKit
 ///     }
 ///
 public enum Device {
-  #if targetEnvironment(macCatalyst)
-  #elseif os(iOS)
+  #if os(iOS)
     /// Device is an [iPod touch (5th generation)](https://support.apple.com/kb/SP657)
     ///
     /// ![Image](https://support.apple.com/library/APPLE/APPLECARE_ALLGEOS/SP657/sp657_ipod-touch_size.jpg)
