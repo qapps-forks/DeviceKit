@@ -1,5 +1,184 @@
 # Changelog
 
+## Version 5.4.0
+
+Releasedate: 2024-05-30
+
+```ruby
+pod 'DeviceKit', '~> 5.4'
+```
+
+### New features
+
+- Add `Orientation.unknown` for when the device is neither in landscape or portrait orientation. ([#410](https://github.com/devicekit/DeviceKit/pull/410))
+
+### Contributors
+
+Thanks to all the contributers of this release!
+- [GeorgeElsham](https://github.com/GeorgeElsham)
+
+## Version 5.3.1
+
+Releasedate: 2024-05-30
+
+```ruby
+pod 'DeviceKit', '~> 5.3'
+```
+
+### Bugfixes
+
+- Process Privacy manifest instead of copy on SPM. ([#409](https://github.com/devicekit/DeviceKit/pull/409))
+
+## Version 5.3.0
+
+Releasedate: 2024-05-21
+
+```ruby
+pod 'DeviceKit', '~> 5.3'
+```
+
+### New May 2024 devices
+
+This version adds support for the devices announced at the May 2024 Apple Event: ([#412](https://github.com/devicekit/DeviceKit/pull/412))
+
+| Device | Case value |
+| --- | --- |
+| iPad Air (11-inch) (M2) | `Device.iPadAir11M2` |
+| iPad Air (13-inch) (M2) | `Device.iPadAir13M2` |
+| iPad Pro (11-inch) (M4) | `Device.iPadPro11M4` |
+| iPad Pro (13-inch) (M4) | `Device.iPadPro13M4` |
+
+### New features
+
+- Added `ApplePencilSupport.firstGenerationUsbC` and `ApplePencilSupport.pro`. ([#412](https://github.com/devicekit/DeviceKit/pull/412))
+
+## Version 5.2.4
+
+Releasedate: 2024-04-30
+
+```ruby
+pod 'DeviceKit', '~> 5.2'
+```
+
+### Bugfixes
+
+- Enable MERGEABLE_LIBRARY flag. ([#407](https://github.com/devicekit/DeviceKit/pull/407))
+
+## Version 5.2.3
+
+Releasedate: 2024-04-15
+
+```ruby
+pod 'DeviceKit', '~> 5.2'
+```
+
+### Bugfixes
+
+- Fix PrivacyInfo for Cocoapods. ([#397](https://github.com/devicekit/DeviceKit/pull/397))
+
+### Contributors
+
+Thanks to all the contributers of this release!
+- [RayJiang16](https://github.com/RayJiang16)
+
+## Version 5.2.2
+
+Releasedate: 2024-02-06
+
+```ruby
+pod 'DeviceKit', '~> 5.2'
+```
+
+### Bugfixes
+
+- Fix building SwiftUI previews on macOS properly. ([#389](https://github.com/devicekit/DeviceKit/pull/389))
+- Fix building for visionOS. ([#390](https://github.com/devicekit/DeviceKit/pull/390))
+
+### Contributors
+
+Thanks to all the contributers of this release!
+- [honghaoz](https://github.com/honghaoz)
+- [chrisvasselli](https://github.com/chrisvasselli)
+
+## Version 5.2.1
+
+Releasedate: 2024-01-17
+
+```ruby
+pod 'DeviceKit', '~> 5.2'
+```
+
+### Bugfixes
+
+- Update swift-tools-version in Package.swift to 5.3 to support Resource files. ([#381](https://github.com/devicekit/DeviceKit/pull/381))
+- Fix PrivacyInfo.xcprivacy not being detected on SPM. ([#384](https://github.com/devicekit/DeviceKit/pull/384))
+
+### Contributors
+
+Thanks to all the contributers of this release!
+- [Semty](https://github.com/Semty)
+- Everyone who reported the SPM issues.
+
+## Version 5.2.0
+
+Releasedate: 2024-01-15
+
+```ruby
+pod 'DeviceKit', '~> 5.2'
+```
+
+### New features
+
+- Add `.hasUSBCConnectivity` to `Device` to indicate whether the device has an USB-C port. ([#373](https://github.com/devicekit/DeviceKit/pull/373))
+- Add `.hasDynamicIsland` to `Device` to indicate whether the device has a dynamic island. ([#368](https://github.com/devicekit/DeviceKit/pull/368))
+- Add `.has5gSupport` to `Device` to indicate whether the device has 5G support. ([#340](https://github.com/devicekit/DeviceKit/pull/340))
+- Added Privacy Manifest to DeviceKit. ([#367](https://github.com/devicekit/DeviceKit/pull/367))
+- Fix compilation issues when building SwiftUI Previews for macOS. ([#376](https://github.com/devicekit/DeviceKit/pull/376))
+
+### Contributors
+
+Thanks to all the contributers of this release!
+- [mhausherr](https://github.com/mhausherr)
+- [417-72KI](https://github.com/417-72KI)
+- [furiosFast](https://github.com/furiosFast)
+- [DenTelezhkin](https://github.com/DenTelezhkin)
+- [honghaoz](https://github.com/honghaoz)
+
+## Version 5.1.0
+
+Releasedate: 2023-09-21
+
+```ruby
+pod 'DeviceKit', '~> 5.1'
+```
+
+### New September 2023 devices
+
+This version adds support for the devices announced at the September 2023 Apple Event: ([#360](https://github.com/devicekit/DeviceKit/pull/360), [#361](https://github.com/devicekit/DeviceKit/pull/361))
+
+| Device | Case value |
+| --- | --- |
+| iPhone 15 | `Device.iPhone15` |
+| iPhone 15 Plus | `Device.iPhone15Plus` |
+| iPhone 15 Pro | `Device.iPhone15Pro` |
+| iPhone 15 Pro Max | `Device.iPhone15ProMax` |
+| Apple Watch Series 9 | `Device.appleWatchSeries9_41mm`, `Device.appleWatchSeries9_45mm` |
+| Apple Watch Ultra 2 | `Device.appleWatchUltra2` |
+
+### Fixes
+
+- Fixes compilation errors that occur when compiling DeviceKit for visionOS. ([#356](https://github.com/devicekit/DeviceKit/pull/356))
+
+### Important notes
+
+- Note that this version does not add full visionOS support to DeviceKit. It just allows DeviceKit to compile for visionOS.
+- When compiling this version of DeviceKit with Xcode 14 or lower, it will produce the following warning 3 times: `Unknown operating system for build configuration 'os'`
+
+### Contributors
+
+Thanks to all the contributers of this release!
+- [wo-ist-henry](https://github.com/wo-ist-henry)
+
 ## Version 5.0.0
 
 Releasedate: 2022-11-01

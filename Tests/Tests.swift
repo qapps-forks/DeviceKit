@@ -17,19 +17,31 @@ class DeviceKitTests: XCTestCase {
   let device = Device.current
 
   func testDeviceSimulator() {
+    #if os(macOS)
+    XCTAssertFalse(device.isOneOf(Device.allSimulators))
+    #else
     XCTAssertTrue(device.isOneOf(Device.allSimulators))
+    #endif
   }
 
   func testIsSimulator() {
+    #if os(macOS)
+    XCTAssertFalse(device.isSimulator)
+    #else
     XCTAssertTrue(device.isSimulator)
+    #endif
   }
 
   func testDeviceDescription() {
+    #if os(macOS)
+    #else
     XCTAssertTrue(device.description.hasPrefix("Simulator"))
     XCTAssertTrue(device.description.contains("iPhone")
       || device.description.contains("iPad")
       || device.description.contains("iPod")
-      || device.description.contains("TV"))
+      || device.description.contains("TV")
+      || device.description.contains("Apple Watch"))
+    #endif
   }
 
   func testIsCanvas() {
@@ -39,6 +51,8 @@ class DeviceKitTests: XCTestCase {
     let otherDevice: Device = device == .appleTVHD ? .appleTV4K : .appleTVHD
     #elseif os(watchOS)
     let otherDevice: Device = device == .appleWatchUltra ? .appleWatchSeries8_41mm : .appleWatchUltra
+    #else
+    let otherDevice: Device = .unknown("mac")
     #endif
     XCTAssertEqual(otherDevice.isCanvas, nil)
     XCTAssertEqual(device.isCanvas, false)
@@ -439,7 +453,9 @@ class DeviceKitTests: XCTestCase {
       .iPhone12ProMax,
       .iPhone13ProMax,
       .iPhone14Plus,
-      .iPhone14ProMax
+      .iPhone14ProMax,
+      .iPhone15Plus,
+      .iPhone15ProMax
     ])
   }
 
@@ -453,6 +469,8 @@ class DeviceKitTests: XCTestCase {
       .iPhone13ProMax,
       .iPhone14Pro,
       .iPhone14ProMax,
+      .iPhone15Pro,
+      .iPhone15ProMax,
       .iPadPro9Inch,
       .iPadPro12Inch,
       .iPadPro12Inch2,
@@ -464,7 +482,9 @@ class DeviceKitTests: XCTestCase {
       .iPadPro11Inch3,
       .iPadPro12Inch5,
       .iPadPro11Inch4,
-      .iPadPro12Inch6
+      .iPadPro12Inch6,
+      .iPadPro11M4,
+      .iPadPro13M4,
     ])
   }
 
@@ -482,6 +502,56 @@ class DeviceKitTests: XCTestCase {
     UIDevice.current.isBatteryMonitoringEnabled = false
     _ = Device.current.batteryState
     XCTAssertFalse(UIDevice.current.isBatteryMonitoringEnabled)
+  }
+
+  func testHasDynamicIsland() {
+    let dynamicIslandDevices: [Device] = [
+      .iPhone14Pro,
+      .iPhone14ProMax,
+      .iPhone15,
+      .iPhone15Plus,
+      .iPhone15Pro,
+      .iPhone15ProMax
+    ]
+    for device in Device.allRealDevices {
+      XCTAssertTrue(device.hasDynamicIsland == device.isOneOf(dynamicIslandDevices), "testHasDynamicIsland failed for \(device.description)")
+    }
+  }
+
+  func testHas5gSupport() {
+    let has5gDevices: [Device] = [
+      .iPhone12,
+      .iPhone12Mini,
+      .iPhone12Pro,
+      .iPhone12ProMax,
+      .iPhone13,
+      .iPhone13Mini,
+      .iPhone13Pro,
+      .iPhone13ProMax,
+      .iPhoneSE3,
+      .iPhone14,
+      .iPhone14Plus,
+      .iPhone14Pro,
+      .iPhone14ProMax,
+      .iPhone15,
+      .iPhone15Plus,
+      .iPhone15Pro,
+      .iPhone15ProMax,
+      .iPad10,
+      .iPadAir5,
+      .iPadAir11M2,
+      .iPadAir13M2,
+      .iPadMini6,
+      .iPadPro11Inch3,
+      .iPadPro12Inch5,
+      .iPadPro11Inch4,
+      .iPadPro12Inch6,
+      .iPadPro11M4,
+      .iPadPro13M4,
+    ]
+    for device in Device.allRealDevices {
+      XCTAssertTrue(device.has5gSupport == device.isOneOf(has5gDevices), "testHasDynamicIsland failed for \(device.description)")
+    }
   }
 
   // MARK: - volumes
@@ -552,15 +622,47 @@ class DeviceKitTests: XCTestCase {
       .iPhone13ProMax,
       .iPhone14Pro,
       .iPhone14ProMax,
+      .iPhone15Pro,
+      .iPhone15ProMax,
       .iPadPro11Inch2,
       .iPadPro12Inch4,
       .iPadPro11Inch3,
       .iPadPro12Inch5,
       .iPadPro11Inch4,
-      .iPadPro12Inch6
+      .iPadPro12Inch6,
+      .iPadPro11M4,
+      .iPadPro13M4,
     ]
     for device in Device.allRealDevices {
       XCTAssertTrue(device.hasLidarSensor == device.isOneOf(lidarDevices), "testLidarValues failed for \(device.description)")
+    }
+  }
+
+  func testHasUSBCConnectivity() {
+    let usbCDevices: [Device] = [
+      .iPhone15,
+      .iPhone15Plus,
+      .iPhone15Pro,
+      .iPhone15ProMax,
+      .iPad10,
+      .iPadAir4,
+      .iPadAir5,
+      .iPadAir11M2,
+      .iPadAir13M2,
+      .iPadMini6,
+      .iPadPro11Inch,
+      .iPadPro12Inch3,
+      .iPadPro11Inch2,
+      .iPadPro12Inch4,
+      .iPadPro11Inch3,
+      .iPadPro12Inch5,
+      .iPadPro11Inch4,
+      .iPadPro12Inch6,
+      .iPadPro11M4,
+      .iPadPro13M4,
+    ]
+    for device in Device.allRealDevices {
+      XCTAssertTrue(device.hasUSBCConnectivity == device.isOneOf(usbCDevices), "testHasUSBCConnectivity failed for \(device.description)")
     }
   }
 
